@@ -1,5 +1,5 @@
 // action types
-export enum RespositoriesTypes{
+export enum RepositoriesTypes{
   LOAD_REQUEST = '@/repositories/LOAD_REQUEST',
   LOAD_SUCCESS = '@/repositories/LOAD_SUCESS',
   LOAD_FAIL = '@/repositories/LOAD_FAIL',
