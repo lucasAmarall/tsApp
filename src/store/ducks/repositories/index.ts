@@ -3,10 +3,7 @@ import { RepositoriesState, RepositoriesTypes } from "./types";
 import { Reducer } from "redux";
 
 const INITIAL_STATE: RepositoriesState = {
-  data: [{
-    id: 1,
-    name: "teste"
-  }],
+  data: [],
   error: false,
   loading: false
 }
@@ -27,7 +24,7 @@ const reducer: Reducer<RepositoriesState> = (state = INITIAL_STATE, action) => {
         data: action.payload
       };
     
-    case RepositoriesTypes.LOAD_FAIL:
+    case RepositoriesTypes.LOAD_FAILURE:
       return {
         ...state,
         error: true,

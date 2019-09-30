@@ -4,6 +4,7 @@ import { ApplicationState } from '../../store';
 import { Repository } from '../../store/ducks/repositories/types';
 import * as RepositoryAction from '../../store/ducks/repositories/actions';
 import { bindActionCreators, Dispatch} from 'redux';
+import Repositoryitem from '../RepositoryItem/RepositoryItem';
 
 // mapeia tipo das informações que vem do mapStateToProps
 export interface stateProps {
@@ -11,9 +12,7 @@ export interface stateProps {
 };
 // mapeia as funções que vem atraves do  mapDispatchToProps
 export interface DispatchProps {
-  loadMore():void,
-  // loadSucess():void,
-  // loadFail():void
+  loadRequest():void,
 }
 // mapeia as props que vem por exemplo através de um pai
 // export interface OwnProps{
@@ -23,20 +22,30 @@ export interface DispatchProps {
 type Props = stateProps & DispatchProps; // & OwnProps; 
 
 class RepositoryList extends Component<Props>{
+  componentDidMount() {
+    const { loadRequest } = this.props;
+
+    loadRequest();
+  }
    render() {
     const { repositories } = this.props
     return (
       <ul>
-        {repositories.map((repository: Repository) => (<li>{repository.id}</li>)) }
+        {
+          repositories.map((repository: Repository, ) => (
+            <Repositoryitem key={repository.id} repository={repository}/>
+          ))
+        }
       </ul>
     );
   }
 };
 
 const mapStateToProps = ({repositories}: ApplicationState) => ({
-  repositories
+  repositories: repositories.data
 });
+
 const mapDispatchToProps = (dispatch: Dispatch) => (
   bindActionCreators(RepositoryAction, dispatch)
-)
-export default connect(mapStateToProps)(RepositoryList);
+);
+export default connect(mapStateToProps, mapDispatchToProps)(RepositoryList);
